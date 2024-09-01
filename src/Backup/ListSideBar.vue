@@ -1,7 +1,7 @@
 <!-- ListSidebar.vue -->
 <template>
   <div>
-    <button @click="emit('showAddListModal')">Create New List</button>
+    <button @click="emit('triggerModal')">Create New List</button>
     <ul>
       <li v-for="list in lists" :key="list.id" @click="selectList(list)">
         {{ list.name }}
@@ -14,11 +14,7 @@
 import { defineProps, defineEmits } from "vue";
 
 const props = defineProps(["lists"]);
-const emit = defineEmits(["selectList", "showAddListModal"]);
-
-// const showAddListModal = () => {
-//   emit("triggerModal");
-// };
+const emit = defineEmits(["selectList", "triggerModal"]);
 
 const selectList = (list) => {
   emit("selectList", list);
