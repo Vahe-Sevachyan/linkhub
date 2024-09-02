@@ -227,7 +227,7 @@ const confirmDeleteItem = (item) => {
 <style scoped>
 .app-container {
   display: flex;
-  background-color: #1e1e1e;
+  background-color: #464545;
   color: #ffffff;
   min-height: 100vh;
 }
@@ -235,7 +235,7 @@ const confirmDeleteItem = (item) => {
 .main-content {
   flex: 1;
   padding: 20px;
-  background-color: #2a2a2a;
+  background-color: #605a5a;
 }
 .modal-content {
   background: #333;
