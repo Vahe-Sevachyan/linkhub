@@ -2,6 +2,7 @@
 <template>
   <div>
     <button @click="emit('showAddListModal')">Create New List</button>
+
     <ul>
       <li v-for="list in lists" :key="list.id" @click="selectList(list)">
         {{ list.name }}
@@ -38,6 +39,6 @@ li {
 }
 
 li:hover {
-  background-color: #f0f0f0;
+  background-color: #827979;
 }
 </style>

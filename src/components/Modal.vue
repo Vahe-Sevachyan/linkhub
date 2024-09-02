@@ -1,16 +1,10 @@
 <!-- Modal.vue -->
-<!-- Modal.vue -->
 <template>
   <div class="modal">
     <div class="modal-content">
       <span class="close-button" @click="closeModal">&times;</span>
       <h3>{{ modalTitle }}</h3>
-      <input
-        v-if="showInput"
-        type="text"
-        v-model="inputValue"
-        :placeholder="inputPlaceholder"
-      />
+      <input type="text" v-model="inputValue" :placeholder="inputPlaceholder" />
       <div v-if="isDeleteConfirm" class="delete-confirm">
         <p>Are you sure you want to delete {{ deleteItemName }}?</p>
       </div>
@@ -25,7 +19,6 @@ import { ref, defineEmits, defineProps } from "vue";
 
 const props = defineProps([
   "modalTitle",
-  "showInput",
   "inputPlaceholder",
   "submitButtonText",
   "showCancelButton",
@@ -40,16 +33,19 @@ const inputValue = ref("");
 const closeModal = () => {
   emit("close");
 };
-
 const submit = () => {
-  // Adjust submission to pass inputValue as object if multiple values are needed
-  if (props.showInput && inputValue.value.trim() === "") {
-    alert("Input cannot be empty");
-    return;
-  }
   emit("submit", inputValue.value); // Pass input value to parent
-  closeModal();
+  inputValue.value = ""; // Reset input value after submission
 };
+// const submit = () => {
+//   // Adjust submission to pass inputValue as object if multiple values are needed
+//   if (props.showInput && inputValue.value.trim() === "") {
+//     alert("Input cannot be empty");
+//     return;
+//   }
+//   emit("submit", inputValue.value); // Pass input value to parent
+//   closeModal();
+// };
 </script>
 
 <style scoped>
@@ -88,7 +84,7 @@ input {
   background: #3a3f44; /* Slightly lighter grey */
   color: #ffffff;
   border: none;
-  border-radius: 3px;
+  border-radius: 5px;
 }
 
 button {
@@ -97,14 +93,19 @@ button {
   cursor: pointer;
   border: none;
   border-radius: 3px;
-  background-color: #5865f2; /* Soft blue button */
+  /*background-color: #5865f2;  Soft blue button */
+  background: #7289da; /* Light blue */
   color: #ffffff;
 }
 
 button:hover {
-  background-color: #4752c4; /* Slightly darker blue on hover */
+  background: #5b6eae; /* Darker blue */
 }
-
+/*
+button:hover {
+  background-color: #4752c4;  Slightly darker blue on hover 
+}
+*/
 .delete-confirm {
   color: #f04747; /* Red for delete confirmation */
 }
