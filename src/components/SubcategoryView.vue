@@ -3,12 +3,7 @@
   <div>
     <h2>{{ list.name }}</h2>
     <button @click="$emit('addSubcategory')">Create Subcategory</button>
-    <button @click="handleDeleteCategory">
-      Delete Category "{{ list.name }}""
-    </button>
-    <!-- <Button @click="$emit('deleteCategory', list)"
-      >Delete "{{ list.name }}""</Button
-    > -->
+    <button @click="showDeleteModal">Delete Category "{{ list.name }}""</button>
     <div class="subcategory-list">
       <div
         v-for="subcategory in list.subcategories"
@@ -17,11 +12,6 @@
       >
         <h3>
           {{ subcategory.name }}
-          <!-- <span
-            class="delete-button"
-            @click.stop="$emit('deleteSubcategory', subcategory)"
-            >✖</span
-          > -->
         </h3>
         <button @click="$emit('editSubcategory', subcategory)">Edit</button>
         <button @click="$emit('deleteSubcategory', subcategory)">Delete</button>
@@ -34,25 +24,45 @@
         </ul>
       </div>
     </div>
+    <!-- Delete Confirmation Modal -->
+    <DeleteConfirmationModal
+      v-if="isDeleteModalVisible"
+      :categoryName="list.name"
+      @confirmDeletion="handleDeleteCategory"
+      @closeModal="isDeleteModalVisible = false"
+    />
   </div>
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from "vue";
+import { defineProps, defineEmits, ref } from "vue";
+import DeleteConfirmationModal from "./DeleteConfirmationModal.vue";
+
 // Define the props to accept the list
 const props = defineProps({
   list: Object,
 });
-// const props = defineProps(["list"]);
 
 // // Define the emit function
 const emit = defineEmits(["deleteCategory"]);
+// Local state to control modal visibility
 
-// Method to handle deletion
-const handleDeleteCategory = () => {
-  console.log("Emitting deleteCategory with list:", props.list);
-  emit("deleteCategory", props.list);
+const isDeleteModalVisible = ref(false);
+
+// Show delete confirmation modal
+const showDeleteModal = () => {
+  isDeleteModalVisible.value = true;
 };
+// Method to handle category deletion
+const handleDeleteCategory = () => {
+  emit("deleteCategory", props.list);
+  isDeleteModalVisible.value = false; // Close modal after deletion
+};
+// // Method to handle deletion
+// const handleDeleteCategory = () => {
+//   console.log("Emitting deleteCategory with list:", props.list);
+//   emit("deleteCategory", props.list);
+// };
 // // Method to handle deletion
 // const handleDeleteCategory = (list) => {
 //   if (list) {
