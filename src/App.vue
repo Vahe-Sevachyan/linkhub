@@ -14,7 +14,8 @@
         @deleteCategory="deleteCategory"
         @editSubcategory="showEditSubcategoryModal"
         @deleteSubcategory="confirmDeleteSubcategory"
-        @addItem="showAddItemModal"
+        @addLink="showAddLinkModal"
+        @editLink="showEditLinkModal(selectedList, $event)"
         @deleteItem="confirmDeleteItem"
       />
     </div>
@@ -62,7 +63,7 @@
     <Modal
       v-if="isAddItemModalVisible"
       modalTitle="Add to List"
-      inputPlaceholder="Enter item name"
+      inputPlaceholder="Enter link name"
       submitButtonText="Save"
       showCancelButton
       @close="hideAddItemModal"
@@ -99,7 +100,22 @@
       @close="hideDeleteItemModal"
       @submit="validateDeleteItem"
     />
-
+    <AddLinkModal
+      v-if="isModalVisible"
+      :modalTitle="modalTitle"
+      :initialName="nameToEdit"
+      :initialLink="linkToEdit"
+      @submit="submitModalForm"
+      @close="hideModal"
+    />
+    <Modal
+      v-if="isEditLinkModalVisible"
+      modalTitle="Edit Link"
+      :inputLinkValue="currentSubcategory?.items[editingIndex]?.url"
+      :inputNameValue="currentSubcategory?.items[editingIndex]?.name"
+      @close="hideEditLinkModal"
+      @submit="saveEditedLink"
+    />
     <!-- Add confirmation modals and other interactions as needed -->
   </div>
 </template>
@@ -108,7 +124,9 @@
 import { ref } from "vue";
 import ListSidebar from "./components/ListSidebar.vue";
 import SubcategoryView from "./components/SubcategoryView.vue";
+import AddLinkModal from "./components/AddLinkModal.vue";
 import Modal from "./components/Modal.vue";
+const isAddLinkModalVisible = ref(false);
 
 // State variables
 // const isSubcategoryModalVisible = ref(false);
@@ -124,7 +142,13 @@ const lists = ref([]);
 const isDeleteItemModalVisible = ref(false);
 const currentItem = ref(null);
 const itemToDeleteName = ref("");
-
+const isEditLinkModalVisible = ref(false);
+const isModalVisible = ref(false);
+const editingIndex = ref(null);
+const modalMode = ref("add"); // 'add' or 'edit'
+const modalTitle = ref("Add New Link");
+const nameToEdit = ref("");
+const linkToEdit = ref("");
 function showAddListModal() {
   isAddListModalVisible.value = true;
 }
@@ -136,6 +160,91 @@ function deleteCategory(list) {
   console.log("deleteCategory called with list:", list);
   lists.value = lists.value.filter((l) => l.id !== list.id);
   selectedList.value = null; // Optionally deselect the deleted list
+}
+// add link to sub category
+function showAddLinkModal(subcategory) {
+  modalMode.value = "add";
+  currentSubcategory.value = subcategory;
+  nameToEdit.value = "";
+  linkToEdit.value = "";
+  modalTitle.value = "Add New Link";
+  isModalVisible.value = true;
+  // isAddLinkModalVisible.value = true;
+}
+function saveEditedLink({ name, url }) {
+  if (currentSubcategory.value && editingIndex.value !== null) {
+    currentSubcategory.value.items[editingIndex.value].name = name;
+    currentSubcategory.value.items[editingIndex.value].url = url;
+  }
+  hideEditLinkModal(); // Close the modal after saving
+}
+
+function hideEditLinkModal() {
+  isEditLinkModalVisible.value = false;
+}
+// function showEditLinkModal(subcategory, index) {
+//   modalMode.value = "edit";
+//   currentSubcategory.value = subcategory;
+//   editingIndex.value = index;
+//   nameToEdit.value = subcategory.items[index].name;
+//   linkToEdit.value = subcategory.items[index].url;
+//   modalTitle.value = "Edit Link";
+//   isModalVisible.value = true;
+// }
+
+function showEditLinkModal(subcategory, index) {
+  if (
+    subcategory &&
+    Array.isArray(subcategory.items) &&
+    index >= 0 &&
+    index < subcategory.items.length
+  ) {
+    currentSubcategory.value = subcategory;
+    editingIndex.value = index;
+    isEditLinkModalVisible.value = true;
+  } else {
+    console.error("Invalid subcategory or index.");
+  }
+}
+// function showEditLinkModal(subcategory, index) {
+//   console.log("subcategory:", subcategory);
+//   console.log("index:", index);
+//   if (subcategory && typeof index === "number") {
+//     currentSubcategory.value = subcategory;
+//     editingIndex.value = index; // Properly assign the index
+//     isEditLinkModalVisible.value = true; // Show the modal
+//   } else {
+//     console.error("Invalid subcategory or index.");
+//   }
+// }
+function hideModal() {
+  isModalVisible.value = false;
+}
+function submitModalForm({ name, link }) {
+  if (modalMode.value === "add") {
+    // Adding a new item to the subcategory
+    const newItem = { id: Date.now(), name, url: link };
+    currentSubcategory.value.items.push(newItem);
+  } else if (modalMode.value === "edit") {
+    // Editing the existing item
+    currentSubcategory.value.items[editingIndex.value] = {
+      ...currentSubcategory.value.items[editingIndex.value],
+      name,
+      url: link,
+    };
+  }
+  hideModal();
+}
+function hideAddLinkModal() {
+  isAddLinkModalVisible.value = false;
+}
+
+function addNewItemToSubcategory({ name, link }) {
+  if (currentSubcategory.value) {
+    const newItem = { id: Date.now(), name, url: link };
+    currentSubcategory.value.items.push(newItem);
+  }
+  hideAddLinkModal();
 }
 // Function to show the delete item modal
 const showDeleteItemModal = (item) => {
