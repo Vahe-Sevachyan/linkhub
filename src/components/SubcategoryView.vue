@@ -46,41 +46,77 @@
 <script setup>
 import { defineProps, defineEmits, ref, computed } from "vue";
 import DeleteConfirmationModal from "./DeleteConfirmationModal.vue";
-
+// State variables
+const currentSubcategory = ref(null);
+const editingIndex = ref(null);
+const isEditLinkModalVisible = ref(false);
+const editLinkName = ref("");
+const editLinkUrl = ref("");
 // Define the props to accept the list
 const props = defineProps({
   list: Object,
+  subcategory: Object,
 });
 
-//trouble shooting function
-function showEditLinkModal(subcategory, index) {
-  console.log("subcategory:", subcategory);
-  console.log("index:", index);
-
-  // Check if subcategory and index are valid
-  if (!subcategory) {
-    console.error("subcategory is invalid:", subcategory);
-  }
-
-  if (typeof index !== "number") {
-    console.error("index is invalid:", index);
-  }
-
-  // Check if subcategory and index are valid and usable
-  if (
-    subcategory &&
-    typeof index === "number" &&
-    index >= 0 &&
-    Array.isArray(subcategory.items) &&
-    index < subcategory.items.length
-  ) {
+// Function to show the edit modal
+const showEditLinkModal = (subcategory, index) => {
+  if (subcategory && index !== undefined) {
     currentSubcategory.value = subcategory;
     editingIndex.value = index;
     isEditLinkModalVisible.value = true;
+
+    // Pre-fill the modal with the existing link data
+    const item = subcategory.items[index];
+    if (item) {
+      editLinkName.value = item.name;
+      editLinkUrl.value = item.url;
+    }
   } else {
     console.error("Invalid subcategory or index.");
   }
-}
+};
+
+// Function to save the edited link
+const saveLink = () => {
+  if (currentSubcategory.value && editingIndex.value !== null) {
+    const item = currentSubcategory.value.items[editingIndex.value];
+    if (item) {
+      item.name = editLinkName.value;
+      item.url = editLinkUrl.value;
+      isEditLinkModalVisible.value = false;
+    }
+  }
+};
+//trouble shooting function
+
+// function showEditLinkModal(subcategory, index) {
+//   console.log("subcategory:", subcategory);
+//   console.log("index:", index);
+
+//   // Check if subcategory and index are valid
+//   if (!subcategory) {
+//     console.error("subcategory is invalid:", subcategory);
+//   }
+
+//   if (typeof index !== "number") {
+//     console.error("index is invalid:", index);
+//   }
+
+//   // Check if subcategory and index are valid and usable
+//   if (
+//     subcategory &&
+//     typeof index === "number" &&
+//     index >= 0 &&
+//     Array.isArray(subcategory.items) &&
+//     index < subcategory.items.length
+//   ) {
+//     currentSubcategory.value = subcategory;
+//     editingIndex.value = index;
+//     isEditLinkModalVisible.value = true;
+//   } else {
+//     console.error("Invalid subcategory or index.");
+//   }
+// }
 
 // const emit = defineEmits(['editLink']);
 
