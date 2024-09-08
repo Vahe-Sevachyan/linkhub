@@ -295,6 +295,7 @@ function hideDeleteItemModal(item) {
 //     alert("Item name does not match. Deletion aborted.");
 //   }
 // };
+
 function validateDeleteItem(inputValue) {
   if (currentItem.value && inputValue === currentItem.value.name) {
     deleteItem(); // Call delete function if name matches
