@@ -235,6 +235,7 @@ function submitModalForm({ name, link }) {
   }
   hideModal();
 }
+
 function hideAddLinkModal() {
   isAddLinkModalVisible.value = false;
 }
@@ -246,6 +247,7 @@ function addNewItemToSubcategory({ name, link }) {
   }
   hideAddLinkModal();
 }
+
 // Function to show the delete item modal
 const showDeleteItemModal = (item) => {
   console.log("showDeleteItemModal called with item:", item);
@@ -349,6 +351,7 @@ const deleteItem = () => {
 //   }
 //   hideSubcategoryModal();
 // };
+
 const confirmDeleteSubcategory = (subcategory) => {
   currentSubcategory.value = subcategory;
   itemToDeleteName.value = subcategory.name; // Store the name of the subcategory to be deleted

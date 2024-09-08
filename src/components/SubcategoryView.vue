@@ -24,12 +24,16 @@
             <button @click="$emit('deleteItem', item)">Delete</button>
           </li>
         </ul>
-        <!-- Edit Modal -->
-        <div v-if="isEditLinkModalVisible">
-          <h3>Edit Link for {{ currentSubcategory?.name }}</h3>
-          <input v-model="editLinkName" placeholder="Link Name" />
-          <input v-model="editLinkUrl" placeholder="Link URL" />
-          <button @click="saveLink">Save</button>
+        <div v-if="isEditLinkModalVisible" class="modal">
+          <div class="modal-content">
+            <h3>Edit Link for {{ currentSubcategory?.name }}</h3>
+            <input v-model="editLinkName" placeholder="Link Name" />
+            <input v-model="editLinkUrl" placeholder="Link URL" />
+            <div class="modal-buttons">
+              <button @click="saveLink">Save</button>
+              <button @click="cancelEdit">Cancel</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -46,12 +50,18 @@
 <script setup>
 import { defineProps, defineEmits, ref, computed } from "vue";
 import DeleteConfirmationModal from "./DeleteConfirmationModal.vue";
+
+// // Define the emit function
+const emit = defineEmits(["deleteCategory", "editLink"]);
+
 // State variables
 const currentSubcategory = ref(null);
 const editingIndex = ref(null);
 const isEditLinkModalVisible = ref(false);
 const editLinkName = ref("");
 const editLinkUrl = ref("");
+const isDeleteModalVisible = ref(false);
+
 // Define the props to accept the list
 const props = defineProps({
   list: Object,
@@ -64,7 +74,6 @@ const showEditLinkModal = (subcategory, index) => {
     currentSubcategory.value = subcategory;
     editingIndex.value = index;
     isEditLinkModalVisible.value = true;
-
     // Pre-fill the modal with the existing link data
     const item = subcategory.items[index];
     if (item) {
@@ -75,7 +84,6 @@ const showEditLinkModal = (subcategory, index) => {
     console.error("Invalid subcategory or index.");
   }
 };
-
 // Function to save the edited link
 const saveLink = () => {
   if (currentSubcategory.value && editingIndex.value !== null) {
@@ -87,6 +95,23 @@ const saveLink = () => {
     }
   }
 };
+
+// Local state to control modal visibility
+
+// Show delete confirmation modal
+const showDeleteModal = () => {
+  isDeleteModalVisible.value = true;
+};
+// Cancel edit and hide modal
+const cancelEdit = () => {
+  isEditLinkModalVisible.value = false;
+};
+// Method to handle category deletion
+const handleDeleteCategory = () => {
+  emit("deleteCategory", props.list);
+  isDeleteModalVisible.value = false; // Close modal after deletion
+};
+
 //trouble shooting function
 
 // function showEditLinkModal(subcategory, index) {
@@ -148,21 +173,7 @@ const saveLink = () => {
 //     console.error("Invalid subcategory or index.");
 //   }
 // }
-// // Define the emit function
-const emit = defineEmits(["deleteCategory", "editLink"]);
-// Local state to control modal visibility
 
-const isDeleteModalVisible = ref(false);
-
-// Show delete confirmation modal
-const showDeleteModal = () => {
-  isDeleteModalVisible.value = true;
-};
-// Method to handle category deletion
-const handleDeleteCategory = () => {
-  emit("deleteCategory", props.list);
-  isDeleteModalVisible.value = false; // Close modal after deletion
-};
 // // Method to handle deletion
 // const handleDeleteCategory = () => {
 //   console.log("Emitting deleteCategory with list:", props.list);
@@ -200,5 +211,33 @@ const handleDeleteCategory = () => {
 
 button {
   margin: 5px;
+}
+/* Modal styling */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.modal-buttons button {
+  margin: 0 10px;
 }
 </style>
