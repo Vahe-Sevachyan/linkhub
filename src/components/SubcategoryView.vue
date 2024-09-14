@@ -21,7 +21,9 @@
             {{ item.name }} -
             <a :href="item.url" target="_blank">{{ item.url }} </a>
             <button @click="showEditLinkModal(subcategory, index)">Edit</button>
-            <button @click="$emit('deleteItem', item)">Delete</button>
+            <button @click="$emit('deleteItem', subcategory, item)">
+              Delete
+            </button>
           </li>
         </ul>
         <div v-if="isEditLinkModalVisible" class="modal">

@@ -16,7 +16,7 @@
         @deleteSubcategory="confirmDeleteSubcategory"
         @addLink="showAddLinkModal"
         @editLink="showEditLinkModal(selectedList, $event)"
-        @deleteItem="confirmDeleteItem"
+        @deleteItem="showDeleteItemModal"
       />
     </div>
     <!-- Existing Modals -->
@@ -130,6 +130,7 @@ const isAddLinkModalVisible = ref(false);
 
 // State variables
 // const isSubcategoryModalVisible = ref(false);
+
 const selectedList = ref(null);
 const isAddListModalVisible = ref(false);
 const isAddSubcategoryModalVisible = ref(false);
@@ -138,7 +139,109 @@ const isEditSubcategoryModalVisible = ref(false);
 const isDeleteSubcategoryModalVisible = ref(false);
 const currentSubcategory = ref(null);
 // NEW
-const lists = ref([]);
+// const lists = ref([]);
+const lists = [
+  {
+    id: 1,
+    name: "List 1",
+    subcategories: [
+      {
+        id: 11,
+        name: "Subcategory 1.1",
+        items: [
+          { id: 111, name: "Item 1.1.1", link: "https://example.com/1.1.1" },
+          { id: 112, name: "Item 1.1.2", link: "https://example.com/1.1.2" },
+          { id: 113, name: "Item 1.1.3", link: "https://example.com/1.1.3" },
+        ],
+      },
+      {
+        id: 12,
+        name: "Subcategory 1.2",
+        items: [
+          { id: 121, name: "Item 1.2.1", link: "https://example.com/1.2.1" },
+          { id: 122, name: "Item 1.2.2", link: "https://example.com/1.2.2" },
+          { id: 123, name: "Item 1.2.3", link: "https://example.com/1.2.3" },
+        ],
+      },
+      {
+        id: 13,
+        name: "Subcategory 1.3",
+        items: [
+          { id: 131, name: "Item 1.3.1", link: "https://example.com/1.3.1" },
+          { id: 132, name: "Item 1.3.2", link: "https://example.com/1.3.2" },
+          { id: 133, name: "Item 1.3.3", link: "https://example.com/1.3.3" },
+        ],
+      },
+    ],
+  },
+  {
+    id: 2,
+    name: "List 2",
+    subcategories: [
+      {
+        id: 21,
+        name: "Subcategory 2.1",
+        items: [
+          { id: 211, name: "Item 2.1.1", link: "https://example.com/2.1.1" },
+          { id: 212, name: "Item 2.1.2", link: "https://example.com/2.1.2" },
+          { id: 213, name: "Item 2.1.3", link: "https://example.com/2.1.3" },
+        ],
+      },
+      {
+        id: 22,
+        name: "Subcategory 2.2",
+        items: [
+          { id: 221, name: "Item 2.2.1", link: "https://example.com/2.2.1" },
+          { id: 222, name: "Item 2.2.2", link: "https://example.com/2.2.2" },
+          { id: 223, name: "Item 2.2.3", link: "https://example.com/2.2.3" },
+        ],
+      },
+      {
+        id: 23,
+        name: "Subcategory 2.3",
+        items: [
+          { id: 231, name: "Item 2.3.1", link: "https://example.com/2.3.1" },
+          { id: 232, name: "Item 2.3.2", link: "https://example.com/2.3.2" },
+          { id: 233, name: "Item 2.3.3", link: "https://example.com/2.3.3" },
+        ],
+      },
+    ],
+  },
+  {
+    id: 3,
+    name: "List 3",
+    subcategories: [
+      {
+        id: 31,
+        name: "Subcategory 3.1",
+        items: [
+          { id: 311, name: "Item 3.1.1", link: "https://example.com/3.1.1" },
+          { id: 312, name: "Item 3.1.2", link: "https://example.com/3.1.2" },
+          { id: 313, name: "Item 3.1.3", link: "https://example.com/3.1.3" },
+        ],
+      },
+      {
+        id: 32,
+        name: "Subcategory 3.2",
+        items: [
+          { id: 321, name: "Item 3.2.1", link: "https://example.com/3.2.1" },
+          { id: 322, name: "Item 3.2.2", link: "https://example.com/3.2.2" },
+          { id: 323, name: "Item 3.2.3", link: "https://example.com/3.2.3" },
+        ],
+      },
+      {
+        id: 33,
+        name: "Subcategory 3.3",
+        items: [
+          { id: 331, name: "Item 3.3.1", link: "https://example.com/3.3.1" },
+          { id: 332, name: "Item 3.3.2", link: "https://example.com/3.3.2" },
+          { id: 333, name: "Item 3.3.3", link: "https://example.com/3.3.3" },
+        ],
+      },
+    ],
+  },
+];
+
 const isDeleteItemModalVisible = ref(false);
 const currentItem = ref(null);
 const itemToDeleteName = ref("");
@@ -182,15 +285,6 @@ function saveEditedLink({ name, url }) {
 function hideEditLinkModal() {
   isEditLinkModalVisible.value = false;
 }
-// function showEditLinkModal(subcategory, index) {
-//   modalMode.value = "edit";
-//   currentSubcategory.value = subcategory;
-//   editingIndex.value = index;
-//   nameToEdit.value = subcategory.items[index].name;
-//   linkToEdit.value = subcategory.items[index].url;
-//   modalTitle.value = "Edit Link";
-//   isModalVisible.value = true;
-// }
 
 function showEditLinkModal(subcategory, index) {
   if (
@@ -206,20 +300,11 @@ function showEditLinkModal(subcategory, index) {
     console.error("Invalid subcategory or index.");
   }
 }
-// function showEditLinkModal(subcategory, index) {
-//   console.log("subcategory:", subcategory);
-//   console.log("index:", index);
-//   if (subcategory && typeof index === "number") {
-//     currentSubcategory.value = subcategory;
-//     editingIndex.value = index; // Properly assign the index
-//     isEditLinkModalVisible.value = true; // Show the modal
-//   } else {
-//     console.error("Invalid subcategory or index.");
-//   }
-// }
+
 function hideModal() {
   isModalVisible.value = false;
 }
+
 function submitModalForm({ name, link }) {
   if (modalMode.value === "add") {
     // Adding a new item to the subcategory
@@ -248,110 +333,87 @@ function addNewItemToSubcategory({ name, link }) {
   hideAddLinkModal();
 }
 
-// Function to show the delete item modal
-const showDeleteItemModal = (item) => {
-  console.log("showDeleteItemModal called with item:", item);
-  if (item) {
+// // Function to show the delete item modal
+// const showDeleteItemModal = (item) => {
+//   console.log("showDeleteItemModal called with item:", item);
+//   if (item) {
+//     currentItem.value = item;
+//     isDeleteItemModalVisible.value = true;
+//   } else {
+//     // console.error("No item provided for deletion.");
+//   }
+// };
+
+const showDeleteItemModal = (subcategory, item) => {
+  console.log(
+    "showDeleteItemModal called with subcategory and item:",
+    subcategory,
+    item
+  );
+  if (subcategory && item) {
+    currentSubcategory.value = subcategory; // Set the correct subcategory
     currentItem.value = item;
     isDeleteItemModalVisible.value = true;
   } else {
-    // console.error("No item provided for deletion.");
+    console.error("No subcategory or item provided for deletion.");
   }
 };
-
-// const showDeleteItemModal = (item) => {
-//   console.log("Item passed to showDeleteItemModal:", item);
-//   if (item) {
-//     currentItem.value = item;
-//     isDeleteItemModalVisible.value = true;
-//   } else {
-//     console.error("No item provided for deletion.");
-//   }
-// };
-
-// const showDeleteItemModal = (item) => {
-//   if (item) {
-//     currentItem.value = item;
-//     isDeleteItemModalVisible.value = true;
-//   } else {
-//     console.error("No item provided for deletion.");
-//   }
-// };
-
-// const showDeleteItemModal = (item) => {
-//   currentItem.value = item;
-//   isDeleteItemModalVisible.value = true;
-// };
-
-function hideDeleteItemModal(item) {
-  currentItem.value = item;
-  isDeleteItemModalVisible.value = false;
-}
-// Validates if delete input is correct
-// const validateDeleteItem = (inputValue) => {
-//   if (inputValue === currentItem.value.name) {
-//     deleteItem();
-//   } else {
-//     alert("Item name does not match. Deletion aborted.");
-//   }
-// };
-
-function validateDeleteItem(inputValue) {
-  if (currentItem.value && inputValue === currentItem.value.name) {
-    deleteItem(); // Call delete function if name matches
+const validateDeleteItem = (inputValue) => {
+  console.log("Expected:", currentItem.value.name, "Input:", inputValue);
+  if (inputValue === currentItem.value.name) {
+    deleteItem(); // Call delete function if the name matches
   } else {
-    alert("Item name does not match or item is undefined. Deletion aborted.");
+    alert("Item name does not match. Deletion aborted.");
   }
-  hideDeleteItemModal();
-}
+};
+//     console.log("Deleting item:", currentItem.value);
+//     console.log(currentSubcategory.value);
+//     console.log("Updated items:", currentSubcategory.value.items);
 
-// const validateDeleteItem = (inputValue) => {
-//   if (inputValue === currentItem.value.name) {
-//     deleteItem(); // Call delete function if name matches
-//   } else {
-//     alert("Item name does not match. Deletion aborted.");
-//   }
-//   // hideDeleteItemModal();
-//   // no function hideDeleteItemModal
-// };
-
-// Adjust the deleteItem function
 // const deleteItem = () => {
-//   if (selectedList.value && currentSubcategory.value) {
-//     const subcategory = selectedList.value.subcategories.find(
-//       (sub) => sub.id === currentSubcategory.value.id
+//   if (currentSubcategory.value && currentItem.value) {
+//     currentSubcategory.value.items = currentSubcategory.value.items.filter(
+//       (itm) => itm.id !== currentItem.value.id
 //     );
-//     if (subcategory) {
-//       subcategory.items = subcategory.items.filter(
-//         (itm) => itm.id !== currentItem.value.id
-//       );
-//     }
 //   }
-//   hideSubcategoryModal();
+//   hideDeleteItemModal();
+// };
+const handleSelectSubcategory = (subcategory) => {
+  currentSubcategory.value = subcategory;
+};
+
+// const deleteItem = () => {
+//   console.log("Current Subcategory: ", currentSubcategory.value);
+//   if (currentSubcategory.value && currentItem.value) {
+//     currentSubcategory.value.items = currentSubcategory.value.items.filter(
+//       (itm) => itm.id !== currentItem.value.id
+//     );
+//   }
+//   hideDeleteItemModal();
 // };
 const deleteItem = () => {
-  const subcategory = selectedList.value.subcategories.find(
-    (sub) => sub.id === currentSubcategory.value.id
+  console.log(
+    "Deleting item from current subcategory: ",
+    currentSubcategory.value
   );
-  if (subcategory) {
-    subcategory.items = subcategory.items.filter(
+  if (currentSubcategory.value && currentItem.value) {
+    currentSubcategory.value.items = currentSubcategory.value.items.filter(
       (itm) => itm.id !== currentItem.value.id
     );
   }
   hideDeleteItemModal();
 };
 
-// const deleteItem = () => {
-//   const subcategory = selectedList.value.subcategories.find(
-//     (sub) => sub.id === currentSubcategory.value.id
-//   );
-//   if (subcategory) {
-//     subcategory.items = subcategory.items.filter(
-//       (itm) => itm.id !== currentItem.value.id
-//     );
-//   }
-//   hideSubcategoryModal();
-// };
+function hideDeleteItemModal() {
+  currentItem.value = null; // Clear current item
+  currentSubcategory.value = null; // Clear subcategory after deletion
+  isDeleteItemModalVisible.value = false;
+}
+
+// function hideDeleteItemModal(item) {
+//   currentItem.value = item;
+//   isDeleteItemModalVisible.value = false;
+// }
 
 const confirmDeleteSubcategory = (subcategory) => {
   currentSubcategory.value = subcategory;
@@ -455,12 +517,177 @@ const confirmDeleteItem = (item) => {
     console.error("No item provided to confirm delete.");
   }
 };
+// Delete the selected item from the subcategory
+// function deleteItem() {
+//   if (selectedList.value && currentSubcategory.value) {
+//     const subcategory = selectedList.value.subcategories.find(
+//       (sub) => sub.id === currentSubcategory.value.id
+//     );
+//     if (subcategory) {
+//       // Filter out the current item from the subcategory's items
+//       subcategory.items = subcategory.items.filter(
+//         (itm) => itm.id !== currentItem.value.id
+//       );
+//     }
+//   }
+//   hideDeleteItemModal(); // Close modal after deletion
+// }
+// const deleteItem = () => {
+//   if (currentSubcategory.value && currentItem.value) {
+//     // Ensure you're using the currentSubcategory and not re-finding it
+//     console.log("Deleting item:", currentItem.value);
 
+//     // Filter the items to remove the one matching currentItem
+//     // currentSubcategory.value.items = currentSubcategory.value.items.filter(
+//     //   (itm) => itm.id !== currentItem.value.id
+//     // );
+//     console.log("Current item ID:", currentItem.value.id);
+//     console.log(
+//       "Subcategory item IDs:",
+//       currentSubcategory.value.items.map((itm) => itm.id)
+//     );
+//     currentSubcategory.value.items = currentSubcategory.value.items.filter(
+//       (itm) => {
+//         console.log("Comparing:", itm.id, "with", currentItem.value.id);
+//         return itm.id !== currentItem.value.id;
+//       }
+//     );
+//     console.log("Updated items:", currentSubcategory.value.items);
+//   }
+//   hideDeleteItemModal();
+// };
+
+// const validateDeleteItem = (inputValue) => {
+//   console.log(currentItem.value.name);
+//   console.log(inputValue);
+//   if (inputValue === currentItem.value.name) {
+//     deleteItem(); // Call delete function if name matches
+//   } else {
+//     alert("Item name does not match. Deletion aborted.");
+//   }
+// const deleteItem = () => {
+//   console.log("Deleting item:", currentItem.value);
+//   if (selectedList.value && currentSubcategory.value) {
+//     const subcategory = selectedList.value.subcategories.find(
+//       (sub) => sub.id === currentSubcategory.value.id
+//     );
+//     if (subcategory) {
+//       console.log("Found subcategory:", subcategory);
+//       subcategory.items = subcategory.items.filter(
+//         (itm) => itm.id !== currentItem.value.id
+//       );
+//       console.log("Updated items:", subcategory.items);
+//     }
+//   }
+//   hideDeleteItemModal();
+// };
+// function validateDeleteItem(inputValue) {
+//   if (currentItem.value && inputValue === currentItem.value.name) {
+//     deleteItem(); // Call delete function if name matches
+//   } else {
+//     alert("Item name does not match or item is undefined. Deletion aborted.");
+//   }
+//   hideDeleteItemModal();
+// }
+
+// Validates if delete input is correct
+// const validateDeleteItem = (inputValue) => {
+//   if (inputValue === currentItem.value.name) {
+//     deleteItem();
+//   } else {
+//     alert("Item name does not match. Deletion aborted.");
+//   }
+// };
+
+// hideDeleteItemModal();
+// no function hideDeleteItemModal
+
+// old 09/07/24
+// const deleteItem = () => {
+//   const subcategory = selectedList.value.subcategories.find(
+//     (sub) => sub.id === currentSubcategory.value.id
+//   );
+//   if (subcategory) {
+//     subcategory.items = subcategory.items.filter(
+//       (itm) => itm.id !== currentItem.value.id
+//     );
+//   }
+//   hideDeleteItemModal();
+// };
+// function showEditLinkModal(subcategory, index) {
+//   console.log("subcategory:", subcategory);
+//   console.log("index:", index);
+//   if (subcategory && typeof index === "number") {
+//     currentSubcategory.value = subcategory;
+//     editingIndex.value = index; // Properly assign the index
+//     isEditLinkModalVisible.value = true; // Show the modal
+//   } else {
+//     console.error("Invalid subcategory or index.");
+//   }
+// }
+// function showEditLinkModal(subcategory, index) {
+//   modalMode.value = "edit";
+//   currentSubcategory.value = subcategory;
+//   editingIndex.value = index;
+//   nameToEdit.value = subcategory.items[index].name;
+//   linkToEdit.value = subcategory.items[index].url;
+//   modalTitle.value = "Edit Link";
+//   isModalVisible.value = true;
+// }
 // const confirmDeleteItem = (item) => {
 //   // confirm and delete the item from the subcategory
 //   currentItem.value = item;
 //   itemToDeleteName.value = item.name; // Store the name of the item to be deleted
 //   isDeleteItemModalVisible.value = true;
+// };
+// const showDeleteItemModal = (item) => {
+//   console.log("Item passed to showDeleteItemModal:", item);
+//   if (item) {
+//     currentItem.value = item;
+//     isDeleteItemModalVisible.value = true;
+//   } else {
+//     console.error("No item provided for deletion.");
+//   }
+// };
+
+// const showDeleteItemModal = (item) => {
+//   if (item) {
+//     currentItem.value = item;
+//     isDeleteItemModalVisible.value = true;
+//   } else {
+//     console.error("No item provided for deletion.");
+//   }
+// };
+
+//  const showDeleteItemModal = (item) => {
+//    currentItem.value = item;
+//    isDeleteItemModalVisible.value = true;
+// };
+
+// Adjust the deleteItem function
+// const deleteItem = () => {
+//   if (selectedList.value && currentSubcategory.value) {
+//     const subcategory = selectedList.value.subcategories.find(
+//       (sub) => sub.id === currentSubcategory.value.id
+//     );
+//     if (subcategory) {
+//       subcategory.items = subcategory.items.filter(
+//         (itm) => itm.id !== currentItem.value.id
+//       );
+//     }
+//   }
+//   hideSubcategoryModal();
+// };
+// const deleteItem = () => {
+//   const subcategory = selectedList.value.subcategories.find(
+//     (sub) => sub.id === currentSubcategory.value.id
+//   );
+//   if (subcategory) {
+//     subcategory.items = subcategory.items.filter(
+//       (itm) => itm.id !== currentItem.value.id
+//     );
+//   }
+//   hideSubcategoryModal();
 // };
 </script>
 
