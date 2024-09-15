@@ -2,6 +2,7 @@
 <template>
   <div class="app-container">
     <ListSidebar
+      class="list-sidebar"
       :lists="lists"
       @showAddListModal="showAddListModal"
       @selectList="handleSelectList"
@@ -594,23 +595,31 @@ const confirmDeleteItem = (item) => {
 <style scoped>
 .app-container {
   display: flex;
-  background-color: #464545;
-  color: #ffffff;
+  /* background-color: #162842; */
+  /* background-color: #1a1d22; */
+  /* color: #ffffff; */
   min-height: 100vh;
 }
 
 .main-content {
   flex: 1;
-  padding: 20px;
-  background-color: #605a5a;
+  /* padding: 20px; */
+  /* background-color: #06132e; */
+  /* background-color: #0e1b2d; */
+  /* background-color: #0e1a2c; */
+  /* background-color: #0d1622; */
+  background-color: #24282e;
 }
 .modal-content {
   background: #333;
   color: #fff;
-  padding: 20px;
+  /* padding: 20px; */
   border-radius: 8px;
 }
-
+.list-sidebar {
+  background-color: #1a1d22;
+  color: #dddddd;
+}
 button {
   padding: 10px 20px;
   margin-top: 10px;
@@ -618,7 +627,7 @@ button {
   background: #565656;
   border: none;
   color: #fff;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.5s ease;
 }
 
 button:hover {
@@ -627,12 +636,12 @@ button:hover {
 
 ul {
   list-style-type: none;
-  padding: 0;
+  /* padding: 0; */
 }
 
 li {
   cursor: pointer;
-  padding: 10px;
+  /* padding: 10px; */
   border-bottom: 1px solid #444;
 }
 
@@ -659,15 +668,15 @@ input {
 }
 
 .subcategory-list {
-  background: #333;
+  /* background: #a36f6f; */
   color: #fff;
-  padding: 20px;
+  /* padding: 20px; */
   border-radius: 8px;
 }
 
 .subcategory {
   border: 1px solid #ddd;
-  padding: 10px;
+  /* padding: 10px; */
   margin: 10px 0;
   width: 80%;
 }

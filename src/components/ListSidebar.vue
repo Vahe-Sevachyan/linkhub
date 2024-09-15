@@ -39,6 +39,6 @@ li {
 }
 
 li:hover {
-  background-color: #827979;
+  background-color: #2b2e34;
 }
 </style>

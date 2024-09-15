@@ -32,8 +32,12 @@
           </div>
         </div>
 
-        <ul>
-          <li v-for="(item, index) in subcategory.items" :key="item.id">
+        <ul class="ul-container">
+          <li
+            v-for="(item, index) in subcategory.items"
+            :key="item.id"
+            class="li-container"
+          >
             <div class="link-container">
               <p>{{ item.name }}</p>
 
@@ -138,7 +142,7 @@ const handleDeleteCategory = () => {
 
 <style scoped>
 .header-button-container {
-  width: 263px;
+  width: 300px;
   border: 1px black solid;
   display: flex;
   justify-content: space-between;
@@ -149,8 +153,14 @@ const handleDeleteCategory = () => {
   cursor: pointer;
   border: none;
   border-radius: 3px;
-  background: #5865f2; /* Soft blue */
+  /*background: #5865f2; Soft blue */
+  background-color: #0080ff;
   color: #ffffff;
+  padding: 5px;
+}
+.create-subcategory-btn:hover,
+.delete-category-btn:hover {
+  background-color: #0066cc;
 }
 .header-section {
   border: 1px red solid;
@@ -165,27 +175,59 @@ const handleDeleteCategory = () => {
 .subcategory-header {
   display: flex;
   justify-content: space-between;
-  border: solid red 1px;
+  /* border: solid red 1px; */
   width: 100%;
 }
 .subcategory-btn-container {
   display: flex;
   justify-content: space-between;
   width: 180px;
-  border: solid blue 1px;
+  /* border: solid blue 1px; */
 }
 .subcategory-list {
-  border: 1px solid #ddd;
+  background-color: #2b3038;
+  border: 1px solid #464b54;
   padding: 10px;
   margin: 10px 0;
   width: 80%;
 }
+.subcategory-list button {
+  font-family: "Josefin Sans", Courier, monospace;
+  cursor: pointer;
+  border: none;
+  padding: 3px;
+  border-radius: 3px;
+  /*background: #5865f2; Soft blue */
+  background-color: #0080ff;
+  color: #ffffff;
+}
+.subcategory-list button:hover {
+  background-color: #0066cc;
+}
+.li-container {
+  background-color: #1e2229;
+  color: #acafb3;
+  width: 95%;
+  margin: auto;
+  /* border: solid red 1px; */
+}
+.ul-container {
+  width: 100%;
+  margin: auto;
+  /* display: flex; */
+  /* align-items: center; */
+  /* flex-direction: column; */
+  /* justify-content: center; */
+  /* margin: auto; */
+  /* border: solid purple 1px; */
+}
 .link-container {
-  margin-top: 15px;
+  /* margin-top: 15px; */
   display: flex;
   justify-content: space-between;
-  /* width: 100%; */
-  border: solid red 1px;
+  /* width: 95%; */
+  /* margin: auto; */
+  /* border: solid red 1px; */
 }
 .link-btn-container {
   width: 100px;
@@ -200,11 +242,7 @@ const handleDeleteCategory = () => {
   font-family: "Josefin Sans", Courier, monospace;
   font-weight: 400;
 }
-button {
-  font-family: "Manrope", Courier, monospace;
-  font-weight: 500;
-  font-size: 14px;
-}
+
 /* Modal styling */
 .modal {
   position: fixed;
