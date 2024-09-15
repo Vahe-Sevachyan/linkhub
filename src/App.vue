@@ -139,108 +139,7 @@ const isEditSubcategoryModalVisible = ref(false);
 const isDeleteSubcategoryModalVisible = ref(false);
 const currentSubcategory = ref(null);
 // NEW
-// const lists = ref([]);
-const lists = [
-  {
-    id: 1,
-    name: "List 1",
-    subcategories: [
-      {
-        id: 11,
-        name: "Subcategory 1.1",
-        items: [
-          { id: 111, name: "Item 1.1.1", link: "https://example.com/1.1.1" },
-          { id: 112, name: "Item 1.1.2", link: "https://example.com/1.1.2" },
-          { id: 113, name: "Item 1.1.3", link: "https://example.com/1.1.3" },
-        ],
-      },
-      {
-        id: 12,
-        name: "Subcategory 1.2",
-        items: [
-          { id: 121, name: "Item 1.2.1", link: "https://example.com/1.2.1" },
-          { id: 122, name: "Item 1.2.2", link: "https://example.com/1.2.2" },
-          { id: 123, name: "Item 1.2.3", link: "https://example.com/1.2.3" },
-        ],
-      },
-      {
-        id: 13,
-        name: "Subcategory 1.3",
-        items: [
-          { id: 131, name: "Item 1.3.1", link: "https://example.com/1.3.1" },
-          { id: 132, name: "Item 1.3.2", link: "https://example.com/1.3.2" },
-          { id: 133, name: "Item 1.3.3", link: "https://example.com/1.3.3" },
-        ],
-      },
-    ],
-  },
-  {
-    id: 2,
-    name: "List 2",
-    subcategories: [
-      {
-        id: 21,
-        name: "Subcategory 2.1",
-        items: [
-          { id: 211, name: "Item 2.1.1", link: "https://example.com/2.1.1" },
-          { id: 212, name: "Item 2.1.2", link: "https://example.com/2.1.2" },
-          { id: 213, name: "Item 2.1.3", link: "https://example.com/2.1.3" },
-        ],
-      },
-      {
-        id: 22,
-        name: "Subcategory 2.2",
-        items: [
-          { id: 221, name: "Item 2.2.1", link: "https://example.com/2.2.1" },
-          { id: 222, name: "Item 2.2.2", link: "https://example.com/2.2.2" },
-          { id: 223, name: "Item 2.2.3", link: "https://example.com/2.2.3" },
-        ],
-      },
-      {
-        id: 23,
-        name: "Subcategory 2.3",
-        items: [
-          { id: 231, name: "Item 2.3.1", link: "https://example.com/2.3.1" },
-          { id: 232, name: "Item 2.3.2", link: "https://example.com/2.3.2" },
-          { id: 233, name: "Item 2.3.3", link: "https://example.com/2.3.3" },
-        ],
-      },
-    ],
-  },
-  {
-    id: 3,
-    name: "List 3",
-    subcategories: [
-      {
-        id: 31,
-        name: "Subcategory 3.1",
-        items: [
-          { id: 311, name: "Item 3.1.1", link: "https://example.com/3.1.1" },
-          { id: 312, name: "Item 3.1.2", link: "https://example.com/3.1.2" },
-          { id: 313, name: "Item 3.1.3", link: "https://example.com/3.1.3" },
-        ],
-      },
-      {
-        id: 32,
-        name: "Subcategory 3.2",
-        items: [
-          { id: 321, name: "Item 3.2.1", link: "https://example.com/3.2.1" },
-          { id: 322, name: "Item 3.2.2", link: "https://example.com/3.2.2" },
-          { id: 323, name: "Item 3.2.3", link: "https://example.com/3.2.3" },
-        ],
-      },
-      {
-        id: 33,
-        name: "Subcategory 3.3",
-        items: [
-          { id: 331, name: "Item 3.3.1", link: "https://example.com/3.3.1" },
-          { id: 332, name: "Item 3.3.2", link: "https://example.com/3.3.2" },
-          { id: 333, name: "Item 3.3.3", link: "https://example.com/3.3.3" },
-        ],
-      },
-    ],
-  },
-];
+const lists = ref([]);
 
 const isDeleteItemModalVisible = ref(false);
 const currentItem = ref(null);
@@ -252,6 +151,7 @@ const modalMode = ref("add"); // 'add' or 'edit'
 const modalTitle = ref("Add New Link");
 const nameToEdit = ref("");
 const linkToEdit = ref("");
+
 function showAddListModal() {
   isAddListModalVisible.value = true;
 }

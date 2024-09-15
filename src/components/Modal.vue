@@ -94,18 +94,18 @@ button {
   border: none;
   border-radius: 3px;
   /*background-color: #5865f2;  Soft blue button */
-  background: #7289da; /* Light blue */
+  background: #5865f2; /* Soft blue */
   color: #ffffff;
 }
 
 button:hover {
-  background: #5b6eae; /* Darker blue */
+  background: #4752c4; /* Darker blue */
 }
-/*
+
 button:hover {
-  background-color: #4752c4;  Slightly darker blue on hover 
+  background-color: #4752c4; /* Slightly darker blue on hover */
 }
-*/
+
 .delete-confirm {
   color: #f04747; /* Red for delete confirmation */
 }

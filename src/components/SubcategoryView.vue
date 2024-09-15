@@ -1,29 +1,52 @@
 <!-- SubcategoryView.vue -->
 <template>
-  <div>
-    <h2>{{ list.name }}</h2>
-    <button @click="$emit('addSubcategory')">Create Subcategory</button>
-    <button @click="showDeleteModal">Delete Category "{{ list.name }}""</button>
-    <div class="subcategory-list">
+  <div class="main-content">
+    <div class="header-section">
+      <h2 class="category-name">{{ list.name }}</h2>
+      <div class="header-button-container">
+        <button class="create-subcategory-btn" @click="$emit('addSubcategory')">
+          Create Subcategory
+        </button>
+        <button class="delete-category-btn" @click="showDeleteModal">
+          Delete "{{ list.name }}"
+        </button>
+      </div>
+    </div>
+
+    <div class="subcategory-container">
       <div
         v-for="subcategory in list.subcategories"
         :key="subcategory.id"
-        class="subcategory"
+        class="subcategory-list"
       >
-        <h3>
-          {{ subcategory.name }}
-        </h3>
-        <button @click="$emit('editSubcategory', subcategory)">Edit</button>
-        <button @click="$emit('deleteSubcategory', subcategory)">Delete</button>
-        <button @click="$emit('addLink', subcategory)">Add to List</button>
-        <ul>
-          <li v-for="(item, index) in subcategory.items" :key="item.id">
-            {{ item.name }} -
-            <a :href="item.url" target="_blank">{{ item.url }} </a>
-            <button @click="showEditLinkModal(subcategory, index)">Edit</button>
-            <button @click="$emit('deleteItem', subcategory, item)">
+        <div class="subcategory-header">
+          <h3 class="subcategory-name">
+            {{ subcategory.name }}
+          </h3>
+          <div class="subcategory-btn-container">
+            <button @click="$emit('editSubcategory', subcategory)">Edit</button>
+            <button @click="$emit('deleteSubcategory', subcategory)">
               Delete
             </button>
+            <button @click="$emit('addLink', subcategory)">Add Link</button>
+          </div>
+        </div>
+
+        <ul>
+          <li v-for="(item, index) in subcategory.items" :key="item.id">
+            <div class="link-container">
+              <p>{{ item.name }}</p>
+
+              <a :href="item.url" target="_blank">{{ item.url }} </a>
+              <div class="link-btn-container">
+                <button @click="showEditLinkModal(subcategory, index)">
+                  Edit
+                </button>
+                <button @click="$emit('deleteItem', subcategory, item)">
+                  Delete
+                </button>
+              </div>
+            </div>
           </li>
         </ul>
         <div v-if="isEditLinkModalVisible" class="modal">
@@ -55,7 +78,6 @@ import DeleteConfirmationModal from "./DeleteConfirmationModal.vue";
 
 // // Define the emit function
 const emit = defineEmits(["deleteCategory", "editLink"]);
-
 // State variables
 const currentSubcategory = ref(null);
 const editingIndex = ref(null);
@@ -97,7 +119,6 @@ const saveLink = () => {
     }
   }
 };
-
 // Local state to control modal visibility
 
 // Show delete confirmation modal
@@ -113,106 +134,76 @@ const handleDeleteCategory = () => {
   emit("deleteCategory", props.list);
   isDeleteModalVisible.value = false; // Close modal after deletion
 };
-
-//trouble shooting function
-
-// function showEditLinkModal(subcategory, index) {
-//   console.log("subcategory:", subcategory);
-//   console.log("index:", index);
-
-//   // Check if subcategory and index are valid
-//   if (!subcategory) {
-//     console.error("subcategory is invalid:", subcategory);
-//   }
-
-//   if (typeof index !== "number") {
-//     console.error("index is invalid:", index);
-//   }
-
-//   // Check if subcategory and index are valid and usable
-//   if (
-//     subcategory &&
-//     typeof index === "number" &&
-//     index >= 0 &&
-//     Array.isArray(subcategory.items) &&
-//     index < subcategory.items.length
-//   ) {
-//     currentSubcategory.value = subcategory;
-//     editingIndex.value = index;
-//     isEditLinkModalVisible.value = true;
-//   } else {
-//     console.error("Invalid subcategory or index.");
-//   }
-// }
-
-// const emit = defineEmits(['editLink']);
-
-// function editItem(index) {
-//   emit("editLink", index); // Emit the event for editing
-// }
-
-// function showEditLinkModal(subcategory, index) {
-
-//   if (
-//     subcategory &&
-//     Array.isArray(subcategory.items) &&
-//     index >= 0 &&
-//     index < subcategory.items.length
-//   ) {
-//     currentSubcategory.value = subcategory;
-//     editingIndex.value = index;
-//     isEditLinkModalVisible.value = true;
-//   } else {
-//     console.error("Invalid subcategory or index.");
-//   }
-// }
-// function showEditLinkModal(subcategory, index) {
-//   if (subcategory && typeof index === "number") {
-//     currentSubcategory.value = subcategory;
-//     editingIndex.value = index; // Properly assign the index
-//     isEditLinkModalVisible.value = true; // Show the modal
-//   } else {
-//     console.error("Invalid subcategory or index.");
-//   }
-// }
-
-// // Method to handle deletion
-// const handleDeleteCategory = () => {
-//   console.log("Emitting deleteCategory with list:", props.list);
-//   emit("deleteCategory", props.list);
-// };
-// // Method to handle deletion
-// const handleDeleteCategory = (list) => {
-//   if (list) {
-//     console.log("Emitting deleteCategory with item:", list);
-//     emit("deleteCategory", list); // Ensure the item is passed
-//   } else {
-//     console.error("No item to delete");
-//   }
-// };
-// // Method to handle deletion
-// const handleDeleteCategory = (item) => {
-//   console.log("Emitting deleteCategory with item:", item);
-//   emit("deleteCategory", item);
-// };
 </script>
 
 <style scoped>
-.subcategory-list {
+.header-button-container {
+  width: 263px;
+  border: 1px black solid;
+  display: flex;
+  justify-content: space-between;
+}
+.create-subcategory-btn,
+.delete-category-btn {
+  font-family: "Josefin Sans", Courier, monospace;
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+  background: #5865f2; /* Soft blue */
+  color: #ffffff;
+}
+.header-section {
+  border: 1px red solid;
+  display: flex;
+  justify-content: space-between;
+}
+.subcategory-container {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
-.subcategory {
+.subcategory-header {
+  display: flex;
+  justify-content: space-between;
+  border: solid red 1px;
+  width: 100%;
+}
+.subcategory-btn-container {
+  display: flex;
+  justify-content: space-between;
+  width: 180px;
+  border: solid blue 1px;
+}
+.subcategory-list {
   border: 1px solid #ddd;
   padding: 10px;
   margin: 10px 0;
   width: 80%;
 }
-
+.link-container {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  /* width: 100%; */
+  border: solid red 1px;
+}
+.link-btn-container {
+  width: 100px;
+  display: flex;
+  justify-content: space-between;
+}
+.category-name {
+  font-family: "Josefin Sans", Courier, monospace;
+  font-weight: 400;
+}
+.subcategory-name {
+  font-family: "Josefin Sans", Courier, monospace;
+  font-weight: 400;
+}
 button {
-  margin: 5px;
+  font-family: "Manrope", Courier, monospace;
+  font-weight: 500;
+  font-size: 14px;
 }
 /* Modal styling */
 .modal {
@@ -241,5 +232,8 @@ button {
 
 .modal-buttons button {
   margin: 0 10px;
+}
+ul {
+  list-style-type: none;
 }
 </style>
