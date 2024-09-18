@@ -143,27 +143,45 @@ const handleDeleteCategory = () => {
 <style scoped>
 .header-button-container {
   width: 300px;
-  border: 1px black solid;
+  /* border: 1px black solid; */
   display: flex;
   justify-content: space-between;
 }
 .create-subcategory-btn,
 .delete-category-btn {
   font-family: "Josefin Sans", Courier, monospace;
+  /* font-size: 15px; */
+  font-weight: 600;
   cursor: pointer;
   border: none;
   border-radius: 3px;
   /*background: #5865f2; Soft blue */
   background-color: #0080ff;
   color: #ffffff;
-  padding: 5px;
+  padding: 4px;
 }
 .create-subcategory-btn:hover,
 .delete-category-btn:hover {
   background-color: #0066cc;
 }
+.subcategory-list button {
+  font-family: "Josefin Sans", Courier, monospace;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  padding: 8px;
+  font-size: 13px;
+  border-radius: 3px;
+  /*background: #5865f2; Soft blue */
+  background-color: #0080ff;
+  color: #ffffff;
+}
+.subcategory-list button:hover {
+  background-color: #0066cc;
+}
 .header-section {
-  border: 1px red solid;
+  padding: 10px;
+  /* border: 1px red solid; */
   display: flex;
   justify-content: space-between;
 }
@@ -181,7 +199,7 @@ const handleDeleteCategory = () => {
 .subcategory-btn-container {
   display: flex;
   justify-content: space-between;
-  width: 180px;
+  width: 188px;
   /* border: solid blue 1px; */
 }
 .subcategory-list {
@@ -191,20 +209,9 @@ const handleDeleteCategory = () => {
   margin: 10px 0;
   width: 80%;
 }
-.subcategory-list button {
-  font-family: "Josefin Sans", Courier, monospace;
-  cursor: pointer;
-  border: none;
-  padding: 3px;
-  border-radius: 3px;
-  /*background: #5865f2; Soft blue */
-  background-color: #0080ff;
-  color: #ffffff;
-}
-.subcategory-list button:hover {
-  background-color: #0066cc;
-}
+
 .li-container {
+  border-radius: 7px;
   background-color: #1e2229;
   color: #acafb3;
   width: 95%;
@@ -222,25 +229,33 @@ const handleDeleteCategory = () => {
   /* border: solid purple 1px; */
 }
 .link-container {
+  padding: 10px;
+  margin-top: 15px;
   /* margin-top: 15px; */
   display: flex;
   justify-content: space-between;
+  /* border-radius: 15px; */
   /* width: 95%; */
   /* margin: auto; */
   /* border: solid red 1px; */
 }
 .link-btn-container {
-  width: 100px;
+  width: 105px;
   display: flex;
   justify-content: space-between;
 }
 .category-name {
   font-family: "Josefin Sans", Courier, monospace;
   font-weight: 400;
+  color: white;
+  background-color: #2e3137;
+  padding: 5px;
+  border-radius: 5px;
 }
 .subcategory-name {
   font-family: "Josefin Sans", Courier, monospace;
   font-weight: 400;
+  color: white;
 }
 
 /* Modal styling */

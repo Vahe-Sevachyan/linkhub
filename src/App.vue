@@ -620,7 +620,7 @@ const confirmDeleteItem = (item) => {
   background-color: #1a1d22;
   color: #dddddd;
 }
-button {
+/* button {
   padding: 10px 20px;
   margin-top: 10px;
   cursor: pointer;
@@ -628,27 +628,27 @@ button {
   border: none;
   color: #fff;
   transition: background-color 0.5s ease;
-}
+} */
 
-button:hover {
+/* button:hover {
   background: #6a6a6a;
-}
+} */
 
 ul {
-  list-style-type: none;
+  /* list-style-type: none; */
   /* padding: 0; */
 }
 
-li {
+/* li {
   cursor: pointer;
-  /* padding: 10px; */
+  padding: 10px;
   border-bottom: 1px solid #444;
-}
+} */
 
 li:hover {
-  background-color: #3a3a3a;
+  /* background-color: #3a3a3a; */
 }
-li .delete-button {
+/* li .delete-button {
   position: absolute;
   right: 10px;
   color: red;
@@ -657,27 +657,27 @@ li .delete-button {
 
 li:hover .delete-button {
   display: inline;
-}
-input {
+} */
+/* input {
   width: 100%;
   padding: 10px;
   margin-top: 10px;
   background: #444;
   color: #fff;
   border: 1px solid #555;
-}
+} */
 
 .subcategory-list {
   /* background: #a36f6f; */
-  color: #fff;
+  /* color: #fff; */
   /* padding: 20px; */
-  border-radius: 8px;
+  /* border-radius: 8px; */
 }
 
-.subcategory {
+/* .subcategory {
   border: 1px solid #ddd;
-  /* padding: 10px; */
+  padding: 10px;
   margin: 10px 0;
   width: 80%;
-}
+} */
 </style>
