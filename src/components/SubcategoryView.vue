@@ -12,7 +12,6 @@
         </button>
       </div>
     </div>
-
     <div class="subcategory-container">
       <div
         v-for="subcategory in list.subcategories"
@@ -40,7 +39,6 @@
           >
             <div class="link-container">
               <p>{{ item.name }}</p>
-
               <a :href="item.url" target="_blank">{{ item.url }} </a>
               <div class="link-btn-container">
                 <button @click="showEditLinkModal(subcategory, index)">
@@ -155,7 +153,6 @@ const handleDeleteCategory = () => {
   cursor: pointer;
   border: none;
   border-radius: 3px;
-  /*background: #5865f2; Soft blue */
   background-color: #0080ff;
   color: #ffffff;
   padding: 4px;
@@ -172,7 +169,6 @@ const handleDeleteCategory = () => {
   padding: 8px;
   font-size: 13px;
   border-radius: 3px;
-  /*background: #5865f2; Soft blue */
   background-color: #0080ff;
   color: #ffffff;
 }
@@ -181,7 +177,6 @@ const handleDeleteCategory = () => {
 }
 .header-section {
   padding: 10px;
-  /* border: 1px red solid; */
   display: flex;
   justify-content: space-between;
 }
@@ -193,14 +188,12 @@ const handleDeleteCategory = () => {
 .subcategory-header {
   display: flex;
   justify-content: space-between;
-  /* border: solid red 1px; */
   width: 100%;
 }
 .subcategory-btn-container {
   display: flex;
   justify-content: space-between;
   width: 188px;
-  /* border: solid blue 1px; */
 }
 .subcategory-list {
   background-color: #2b3038;
@@ -216,28 +209,16 @@ const handleDeleteCategory = () => {
   color: #acafb3;
   width: 95%;
   margin: auto;
-  /* border: solid red 1px; */
 }
 .ul-container {
   width: 100%;
   margin: auto;
-  /* display: flex; */
-  /* align-items: center; */
-  /* flex-direction: column; */
-  /* justify-content: center; */
-  /* margin: auto; */
-  /* border: solid purple 1px; */
 }
 .link-container {
   padding: 10px;
   margin-top: 15px;
-  /* margin-top: 15px; */
   display: flex;
   justify-content: space-between;
-  /* border-radius: 15px; */
-  /* width: 95%; */
-  /* margin: auto; */
-  /* border: solid red 1px; */
 }
 .link-btn-container {
   width: 105px;
@@ -257,7 +238,6 @@ const handleDeleteCategory = () => {
   font-weight: 400;
   color: white;
 }
-
 /* Modal styling */
 .modal {
   position: fixed;

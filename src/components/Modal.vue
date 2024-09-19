@@ -37,15 +37,6 @@ const submit = () => {
   emit("submit", inputValue.value); // Pass input value to parent
   inputValue.value = ""; // Reset input value after submission
 };
-// const submit = () => {
-//   // Adjust submission to pass inputValue as object if multiple values are needed
-//   if (props.showInput && inputValue.value.trim() === "") {
-//     alert("Input cannot be empty");
-//     return;
-//   }
-//   emit("submit", inputValue.value); // Pass input value to parent
-//   closeModal();
-// };
 </script>
 
 <style scoped>
