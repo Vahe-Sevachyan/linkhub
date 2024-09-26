@@ -5,7 +5,7 @@
       <span class="close-button" @click="closeModal">&times;</span>
       <h3>{{ modalTitle }}</h3>
       <div v-if="isErrorMessageTrue" class="error-Msg">
-        <h5>{{ errorMessage }}</h5>
+        <!-- <h5>{{ errorMessage }}</h5> -->
       </div>
       <h5>{{ errorMessage }}</h5>
       <input type="text" v-model="inputValue" :placeholder="inputPlaceholder" />

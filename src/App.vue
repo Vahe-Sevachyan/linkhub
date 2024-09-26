@@ -347,10 +347,14 @@ const hideEditSubcategoryModal = () => {
 };
 
 const editSubcategory = (newName) => {
-  if (currentSubcategory.value) {
-    currentSubcategory.value.name = newName;
+  if (newName.trim() === "") {
+    alert("Value can not be empty.");
+  } else {
+    if (currentSubcategory.value) {
+      currentSubcategory.value.name = newName;
+    }
+    hideEditSubcategoryModal();
   }
-  hideEditSubcategoryModal();
 };
 
 const showDeleteSubcategoryModal = (subcategory) => {
@@ -361,14 +365,19 @@ const showDeleteSubcategoryModal = (subcategory) => {
 const hideDeleteSubcategoryModal = () => {
   isDeleteSubcategoryModalVisible.value = false;
 };
-
-const deleteSubcategory = () => {
-  if (selectedList.value && currentSubcategory.value) {
-    selectedList.value.subcategories = selectedList.value.subcategories.filter(
-      (sub) => sub.id !== currentSubcategory.value.id
-    );
+// Here
+const deleteSubcategory = (inputValue) => {
+  if (inputValue === currentSubcategory.value.name) {
+    if (selectedList.value && currentSubcategory.value) {
+      selectedList.value.subcategories =
+        selectedList.value.subcategories.filter(
+          (sub) => sub.id !== currentSubcategory.value.id
+        );
+    }
+    hideDeleteSubcategoryModal();
+  } else {
+    alert("Name did not match!");
   }
-  hideDeleteSubcategoryModal();
 };
 
 const validateDeleteSubcategory = (inputValue) => {
