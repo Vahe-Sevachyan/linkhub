@@ -21,6 +21,7 @@
       />
     </div>
     <!-- Existing Modals -->
+
     <!-- Add confirmation modal for list and subcategory deletion -->
     <Modal
       v-if="isDeleteItemModalVisible"
@@ -43,8 +44,9 @@
     <!-- Main Modal for creating lists -->
     <Modal
       v-if="isAddListModalVisible"
-      modalTitle="Add to List"
-      inputPlaceholder="Enter item name"
+      modalTitle="Create New Category"
+      isErrorMessageTrue
+      inputPlaceholder="Enter category name"
       submitButtonText="Save"
       showCancelButton
       @close="hideAddListModal"
@@ -161,6 +163,7 @@ function deleteCategory(list) {
   lists.value = lists.value.filter((l) => l.id !== list.id);
   selectedList.value = null; // Optionally deselect the deleted list
 }
+
 // add link to sub category
 function showAddLinkModal(subcategory) {
   modalMode.value = "add";
@@ -170,6 +173,7 @@ function showAddLinkModal(subcategory) {
   modalTitle.value = "Add New Link";
   isModalVisible.value = true;
 }
+
 function saveEditedLink({ name, url }) {
   if (currentSubcategory.value && editingIndex.value !== null) {
     currentSubcategory.value.items[editingIndex.value].name = name;
@@ -282,10 +286,14 @@ const confirmDeleteSubcategory = (subcategory) => {
 };
 
 const addNewList = (name) => {
-  const newList = { id: Date.now(), name, subcategories: [] };
-  lists.value.push(newList);
-  selectedList.value = newList;
-  hideAddListModal();
+  if (name.trim() === "") {
+    alert("Category name must contain at least 1 character!");
+  } else {
+    const newList = { id: Date.now(), name, subcategories: [] };
+    lists.value.push(newList);
+    selectedList.value = newList;
+    hideAddListModal();
+  }
 };
 
 const handleSelectList = (list) => {
@@ -301,11 +309,15 @@ const hideSubcategoryModal = () => {
 };
 
 const addNewSubcategory = (title) => {
-  if (selectedList.value) {
-    const newSubcategory = { id: Date.now(), name: title, items: [] };
-    selectedList.value.subcategories.push(newSubcategory);
+  if (title.trim() === "") {
+    alert("Value cant be empty!");
+  } else {
+    if (selectedList.value) {
+      const newSubcategory = { id: Date.now(), name: title, items: [] };
+      selectedList.value.subcategories.push(newSubcategory);
+    }
+    hideSubcategoryModal();
   }
-  hideSubcategoryModal();
 };
 
 const showAddItemModal = (subcategory) => {

@@ -4,6 +4,10 @@
     <div class="modal-content">
       <span class="close-button" @click="closeModal">&times;</span>
       <h3>{{ modalTitle }}</h3>
+      <div v-if="isErrorMessageTrue" class="error-Msg">
+        <h5>{{ errorMessage }}</h5>
+      </div>
+      <h5>{{ errorMessage }}</h5>
       <input type="text" v-model="inputValue" :placeholder="inputPlaceholder" />
       <div v-if="isDeleteConfirm" class="delete-confirm">
         <p>Are you sure you want to delete {{ deleteItemName }}?</p>
@@ -18,6 +22,8 @@
 import { ref, defineEmits, defineProps } from "vue";
 
 const props = defineProps([
+  "isErrorMessageTrue",
+  "errorMessage",
   "modalTitle",
   "inputPlaceholder",
   "submitButtonText",
@@ -33,6 +39,7 @@ const inputValue = ref("");
 const closeModal = () => {
   emit("close");
 };
+
 const submit = () => {
   emit("submit", inputValue.value); // Pass input value to parent
   inputValue.value = ""; // Reset input value after submission
@@ -99,5 +106,8 @@ button:hover {
 
 .delete-confirm {
   color: #f04747; /* Red for delete confirmation */
+}
+.error-Msg {
+  color: #f04747;
 }
 </style>
