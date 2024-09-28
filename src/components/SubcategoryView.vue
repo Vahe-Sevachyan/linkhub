@@ -137,7 +137,6 @@ const handleDeleteCategory = () => {
   isDeleteModalVisible.value = false; // Close modal after deletion
 };
 </script>
-
 <style scoped>
 .header-button-container {
   width: 300px;

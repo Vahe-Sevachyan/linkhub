@@ -41,7 +41,6 @@ const confirmDeletion = () => {
   emit("confirmDeletion");
 };
 </script>
-
 <style scoped>
 .modal {
   position: fixed;

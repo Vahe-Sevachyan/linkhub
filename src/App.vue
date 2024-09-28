@@ -29,6 +29,7 @@
       inputPlaceholder="Type the item name to delete"
       submitButtonText="Confirm Delete"
       showCancelButton
+      :expectedName="currentItem?.name"
       @close="hideDeleteItemModal"
       @submit="validateDeleteItem"
     />
@@ -89,6 +90,7 @@
       deleteItemName="subcategory"
       submitButtonText="Yes"
       showCancelButton
+      :expectedName="currentSubcategory?.name"
       @close="hideDeleteSubcategoryModal"
       @submit="deleteSubcategory"
     />
@@ -100,6 +102,7 @@
       inputPlaceholder="Type the item name to delete"
       submitButtonText="Confirm Delete"
       showCancelButton
+      :expectedName="currentItem?.name"
       @close="hideDeleteItemModal"
       @submit="validateDeleteItem"
     />
@@ -158,6 +161,7 @@ function showAddListModal() {
 function hideAddListModal() {
   isAddListModalVisible.value = false;
 }
+
 function deleteCategory(list) {
   console.log("deleteCategory called with list:", list);
   lists.value = lists.value.filter((l) => l.id !== list.id);
@@ -232,21 +236,30 @@ function addNewItemToSubcategory({ name, link }) {
   }
   hideAddLinkModal();
 }
-
 const showDeleteItemModal = (subcategory, item) => {
-  console.log(
-    "showDeleteItemModal called with subcategory and item:",
-    subcategory,
-    item
-  );
   if (subcategory && item) {
-    currentSubcategory.value = subcategory; // Set the correct subcategory
+    currentSubcategory.value = subcategory;
     currentItem.value = item;
+    itemToDeleteName.value = item.name; // Set the item name to delete
     isDeleteItemModalVisible.value = true;
   } else {
     console.error("No subcategory or item provided for deletion.");
   }
 };
+// const showDeleteItemModal = (subcategory, item) => {
+//   // console.log(
+//   //   "showDeleteItemModal called with subcategory and item:",
+//   //   subcategory,
+//   //   item
+//   // );
+//   if (subcategory && item) {
+//     currentSubcategory.value = subcategory; // Set the correct subcategory
+//     currentItem.value = item;
+//     isDeleteItemModalVisible.value = true;
+//   } else {
+//     console.error("No subcategory or item provided for deletion.");
+//   }
+// };
 const validateDeleteItem = (inputValue) => {
   console.log("Expected:", currentItem.value.name, "Input:", inputValue);
   if (inputValue === currentItem.value.name) {
@@ -279,12 +292,16 @@ function hideDeleteItemModal() {
   isDeleteItemModalVisible.value = false;
 }
 
+// const confirmDeleteSubcategory = (subcategory) => {
+//   currentSubcategory.value = subcategory;
+//   itemToDeleteName.value = subcategory.name; // Store the name of the subcategory to be deleted
+//   isDeleteSubcategoryModalVisible.value = true;
+// };
 const confirmDeleteSubcategory = (subcategory) => {
   currentSubcategory.value = subcategory;
-  itemToDeleteName.value = subcategory.name; // Store the name of the subcategory to be deleted
+  itemToDeleteName.value = subcategory.name; // Set the subcategory name to delete
   isDeleteSubcategoryModalVisible.value = true;
 };
-
 const addNewList = (name) => {
   if (name.trim() === "") {
     alert("Category name must contain at least 1 character!");
