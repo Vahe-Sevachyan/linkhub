@@ -12,6 +12,7 @@
         v-if="selectedList"
         :list="selectedList"
         @addSubcategory="showSubcategoryModal"
+        @editCategory="showEditListModal"
         @deleteCategory="deleteCategory"
         @editSubcategory="showEditSubcategoryModal"
         @deleteSubcategory="confirmDeleteSubcategory"
@@ -52,6 +53,16 @@
       showCancelButton
       @close="hideAddListModal"
       @submit="addNewList"
+    />
+    <!-- Modal for editing list names -->
+    <Modal
+      v-if="isEditListModalVisible"
+      :modalTitle="`Edit '${currentList?.name}'`"
+      :inputValue="currentList?.name"
+      submitButtonText="Save"
+      showCancelButton
+      @close="hideEditListModal"
+      @submit="saveEditedList"
     />
     <!-- Modal for creating subcategories -->
     <Modal
@@ -153,6 +164,8 @@ const modalMode = ref("add"); // 'add' or 'edit'
 const modalTitle = ref("Add New Link");
 const nameToEdit = ref("");
 const linkToEdit = ref("");
+const isEditListModalVisible = ref(false);
+const currentList = ref(null);
 
 function showAddListModal() {
   isAddListModalVisible.value = true;
@@ -166,6 +179,28 @@ function deleteCategory(list) {
   console.log("deleteCategory called with list:", list);
   lists.value = lists.value.filter((l) => l.id !== list.id);
   selectedList.value = null; // Optionally deselect the deleted list
+}
+
+// Function to show the edit list modal
+function showEditListModal(list) {
+  currentList.value = list;
+  isEditListModalVisible.value = true;
+}
+
+// Function to hide the modal
+function hideEditListModal() {
+  isEditListModalVisible.value = false;
+  currentList.value = null;
+}
+
+// Function to save the edited list name
+function saveEditedList(newName) {
+  if (newName.trim() === "") {
+    alert("List name cannot be empty.");
+  } else {
+    currentList.value.name = newName;
+    hideEditListModal();
+  }
 }
 
 // add link to sub category
@@ -416,7 +451,6 @@ const confirmDeleteItem = (item) => {
   }
 };
 </script>
-
 <style scoped>
 .app-container {
   display: flex;

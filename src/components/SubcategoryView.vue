@@ -7,6 +7,9 @@
         <button class="create-subcategory-btn" @click="$emit('addSubcategory')">
           Create Subcategory
         </button>
+        <button class="edit-category-btn" @click="$emit('editCategory', list)">
+          Edit "{{ list.name }}"
+        </button>
         <button class="delete-category-btn" @click="showDeleteModal">
           Delete "{{ list.name }}"
         </button>
