@@ -97,9 +97,11 @@ const close = () => {
   background: #2c2f33; /* Dark grey */
   padding: 20px;
   border-radius: 5px;
-  width: 300px;
+  width: 500px;
   text-align: center;
   color: #ffffff; /* White text for contrast */
+  /* font-family: "Josefin Sans", Courier, monospace;  */
+  font-family: "Manrope", Courier, monospace;
 }
 
 .close-button {
@@ -110,7 +112,7 @@ const close = () => {
 }
 
 input {
-  width: 100%;
+  width: 75%;
   padding: 10px;
   margin-top: 10px;
   background: #3a3f44; /* Slightly lighter grey */
@@ -120,18 +122,14 @@ input {
 }
 
 button {
-  padding: 10px 20px;
-  margin-top: 10px;
+  padding: 10px;
+  margin: 15px 5px -5px 5px;
   cursor: pointer;
   border: none;
   border-radius: 3px;
   /*background-color: #5865f2;  Soft blue button */
   background: #5865f2; /* Soft blue */
   color: #ffffff;
-}
-
-button:hover {
-  background: #4752c4; /* Darker blue */
 }
 
 button:hover {

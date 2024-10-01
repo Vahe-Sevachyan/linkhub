@@ -4,7 +4,7 @@
       <h3>Confirm Deletion</h3>
       <p>
         Please type the name of the category
-        <strong>{{ categoryName }}</strong> to confirm deletion:
+        <strong>"{{ categoryName }}"</strong> to confirm deletion:
       </p>
       <input
         type="text"
@@ -55,7 +55,8 @@ const confirmDeletion = () => {
 }
 
 .modal-content {
-  background: white;
+  background: #2c2f33;
+  color: #ffffff;
   padding: 20px;
   border-radius: 5px;
   width: 300px;
@@ -64,12 +65,23 @@ const confirmDeletion = () => {
 
 input {
   width: 100%;
-  padding: 8px;
+  padding: 7px;
   margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+  background: #3a3f44;
+  color: #ffffff;
 }
 
 button {
+  background: #5865f2; /* Soft blue */
+  color: #ffffff;
   padding: 8px 16px;
+  cursor: pointer;
   margin: 5px;
+  border-radius: 4px;
+}
+button:hover {
+  background-color: #4752c4; /* Slightly darker blue on hover */
 }
 </style>
