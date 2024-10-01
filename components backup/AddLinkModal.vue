@@ -21,8 +21,10 @@ const props = defineProps({
 });
 
 const emit = defineEmits(["submit", "close"]);
+
 const name = ref(props.initialName || "");
 const link = ref(props.initialLink || "");
+
 const isValid = ref(false);
 
 watch([name, link], () => {

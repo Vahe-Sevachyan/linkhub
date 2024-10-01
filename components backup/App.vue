@@ -90,20 +90,10 @@
       modalTitle="Edit Subcategory"
       inputPlaceholder="Enter new subcategory name"
       submitButtonText="Save"
-      :expectedSubCategoryName="currentSubcategory?.name"
       showCancelButton
       @close="hideEditSubcategoryModal"
       @submit="editSubcategory"
     />
-    <!--<template >
-        <p>Editing Subcategory: {{ currentSubcategory?.name }}</p>
-        Input field for the new subcategory name 
-        <input
-          v-model="newSubcategoryName"
-          placeholder="Enter new subcategory name"
-        />
-      </template>-->
-
     <Modal
       v-if="isDeleteSubcategoryModalVisible"
       modalTitle="Delete Subcategory"
@@ -176,7 +166,6 @@ const nameToEdit = ref("");
 const linkToEdit = ref("");
 const isEditListModalVisible = ref(false);
 const currentList = ref(null);
-const newSubcategoryName = ref("");
 
 function showAddListModal() {
   isAddListModalVisible.value = true;
@@ -400,22 +389,14 @@ const addItemToSubcategory = ({ name, url }) => {
   hideAddItemModal();
 };
 
-function showEditSubcategoryModal(subcategory) {
+const showEditSubcategoryModal = (subcategory) => {
   currentSubcategory.value = subcategory;
-  newSubcategoryName.value = subcategory.name; // Prefill the input with the current name
   isEditSubcategoryModalVisible.value = true;
-}
+};
+
 const hideEditSubcategoryModal = () => {
   isEditSubcategoryModalVisible.value = false;
 };
-// function editSubcategory() {
-//   if (newSubcategoryName.value.trim() === "") {
-//     alert("Subcategory name cannot be empty.");
-//   } else if (currentSubcategory.value) {
-//     currentSubcategory.value.name = newSubcategoryName.value; // Update the subcategory name
-//     hideEditSubcategoryModal();
-//   }
-// }
 
 const editSubcategory = (newName) => {
   if (newName.trim() === "") {

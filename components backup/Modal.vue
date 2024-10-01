@@ -3,14 +3,12 @@
   <div class="modal">
     <div class="modal-content">
       <h2>{{ modalTitle }}</h2>
-      <p class="item-name" :class="nameClass">{{ expectedName }}</p>
-      <p>{{ expectedSubCategoryName }}</p>
       <input
         v-model="inputValue"
         :placeholder="inputPlaceholder"
         :class="inputClass"
       />
-
+      <p class="item-name" :class="nameClass">{{ expectedName }}</p>
       <button @click="submit">{{ submitButtonText }}</button>
       <button v-if="showCancelButton" @click="close">
         {{ cancelButtonText || "Cancel" }}
@@ -27,13 +25,10 @@ const props = defineProps({
   submitButtonText: String,
   showCancelButton: Boolean,
   expectedName: String,
-  expectedSubCategoryName: String,
 });
-
 const emit = defineEmits(["close", "submit"]);
 
 // State for the input field value
-
 const inputValue = ref("");
 
 // Computed property to style the input field based on whether the input matches the expected name
