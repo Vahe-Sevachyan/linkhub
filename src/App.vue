@@ -487,6 +487,6 @@ const confirmDeleteItem = (item) => {
 }
 .list-sidebar {
   background-color: #1a1d22;
-  color: #dddddd;
+  /* color: #dddddd; */
 }
 </style>

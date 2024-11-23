@@ -1,7 +1,7 @@
 <!-- ListSidebar.vue -->
 <template>
   <div class="side-bar-container">
-    <h3 class="side-bar-title">Linkhub</h3>
+    <h3 class="text-red-500">Linkhub</h3>
     <button class="side-bar-create-button" @click="emit('showAddListModal')">
       Create New
     </button>
@@ -11,6 +11,9 @@
           {{ list.name }}
         </li>
       </ul>
+      <div class="p-4 text-center text-white bg-blue-500">
+        Tailwind is working!
+      </div>
     </div>
   </div>
 </template>
@@ -27,13 +30,13 @@ const selectList = (list) => {
 </script>
 
 <style scoped>
-.side-bar-title {
+/* .side-bar-title {
   margin: auto;
   width: 100px;
   display: flex;
   padding-top: 5px;
   justify-content: center;
-}
+} */
 
 .side-bar-create-button {
   padding: 5px;

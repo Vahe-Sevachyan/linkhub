@@ -142,13 +142,14 @@ const handleDeleteCategory = () => {
 </script>
 <style scoped>
 .header-button-container {
-  width: 300px;
+  min-width: 400px;
   /* border: 1px black solid; */
   display: flex;
   justify-content: space-between;
 }
 .create-subcategory-btn,
-.delete-category-btn {
+.delete-category-btn,
+.edit-category-btn {
   font-family: "Josefin Sans", Courier, monospace;
   /* font-size: 15px; */
   font-weight: 600;
@@ -160,7 +161,8 @@ const handleDeleteCategory = () => {
   padding: 4px;
 }
 .create-subcategory-btn:hover,
-.delete-category-btn:hover {
+.delete-category-btn:hover,
+.edit-category-btn:hover {
   background-color: #0066cc;
 }
 .subcategory-list button {

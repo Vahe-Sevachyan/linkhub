@@ -1,20 +1,23 @@
 <template>
   <div class="modal">
     <div class="modal-content">
-      <h3>Confirm Deletion</h3>
+      <h3 class="modal-header">Confirm Deletion</h3>
       <p>
         Please type the name of the category
-        <strong>"{{ categoryName }}"</strong> to confirm deletion:
+        <strong class="category-name">"{{ categoryName }}"</strong> to confirm
+        deletion:
       </p>
       <input
         type="text"
         v-model="inputName"
         placeholder="Type category name here"
       />
-      <button :disabled="!isNameMatched" @click="confirmDeletion">
-        Confirm Delete
-      </button>
-      <button @click="$emit('closeModal')">Cancel</button>
+      <div class="button-container">
+        <button :disabled="!isNameMatched" @click="confirmDeletion">
+          Confirm Delete
+        </button>
+        <button @click="$emit('closeModal')">Cancel</button>
+      </div>
     </div>
   </div>
 </template>
@@ -81,6 +84,12 @@ button {
   margin: 5px;
   border-radius: 4px;
 }
+
+button:disabled {
+  background: grey;
+  cursor: not-allowed;
+}
+
 button:hover {
   background-color: #4752c4; /* Slightly darker blue on hover */
 }

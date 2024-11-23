@@ -2,19 +2,20 @@
 <template>
   <div class="modal">
     <div class="modal-content">
-      <h2>{{ modalTitle }}</h2>
+      <h2 class="modal-title">{{ modalTitle }}</h2>
       <p class="item-name" :class="nameClass">{{ expectedName }}</p>
-      <p>{{ expectedSubCategoryName }}</p>
+      <p class="subcategory-name">{{ expectedSubCategoryName }}</p>
       <input
         v-model="inputValue"
         :placeholder="inputPlaceholder"
         :class="inputClass"
       />
-
-      <button @click="submit">{{ submitButtonText }}</button>
-      <button v-if="showCancelButton" @click="close">
-        {{ cancelButtonText || "Cancel" }}
-      </button>
+      <div class="button-container">
+        <button @click="submit">{{ submitButtonText }}</button>
+        <button v-if="showCancelButton" @click="close">
+          {{ cancelButtonText || "Cancel" }}
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -65,20 +66,20 @@ const close = () => {
 
 <style scoped>
 /* Styling for the input field */
-.input-gray {
+/* .input-gray {
   color: gray;
-}
-.input-red {
+} */
+/* .input-red {
   color: red;
-}
+} */
 
 /* Styling for the displayed name */
 .name-gray {
   color: gray;
-  text-decoration: line-through;
+  /* text-decoration: line-through; */
 }
 .name-red {
-  color: red;
+  color: rgb(194, 26, 26);
   font-weight: bold;
 }
 .modal {
@@ -97,7 +98,7 @@ const close = () => {
   background: #2c2f33; /* Dark grey */
   padding: 20px;
   border-radius: 5px;
-  width: 500px;
+  width: 450px;
   text-align: center;
   color: #ffffff; /* White text for contrast */
   /* font-family: "Josefin Sans", Courier, monospace;  */
