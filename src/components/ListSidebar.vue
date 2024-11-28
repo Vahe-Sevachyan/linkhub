@@ -1,19 +1,21 @@
 <!-- ListSidebar.vue -->
 <template>
   <div class="side-bar-container">
-    <h3 class="text-red-500">Linkhub</h3>
+    <h3 class="text-2xl text-center text-blue-500 font-weight: 800">Linkhub</h3>
     <button class="side-bar-create-button" @click="emit('showAddListModal')">
       Create New
     </button>
     <div class="side-bar-list-container">
       <ul class="side-bar-list">
-        <li v-for="list in lists" :key="list.id" @click="selectList(list)">
+        <li
+          v-for="list in lists"
+          :key="list.id"
+          @click="selectList(list)"
+          class="font-semibold tracking-wide text-center text-gray-100 capitalize text-1xl hover:text-blue-500"
+        >
           {{ list.name }}
         </li>
       </ul>
-      <div class="p-4 text-center text-white bg-blue-500">
-        Tailwind is working!
-      </div>
     </div>
   </div>
 </template>
@@ -58,16 +60,20 @@ const selectList = (list) => {
 }
 
 .side-bar-list {
-  background-color: #2b3038;
+  background-color: #313942;
+  /* background-color: #323c4d; good color */
+  /* background-color: #353c48; */
+  font-family: "Josefin Sans", Courier, monospace;
+  /* text-transform: capitalize; */
 }
 
 .side-bar-list li {
-  color: #bcbcbc;
+  /* color: #bcbcbc; */
   border-bottom: #464b54 1px solid;
 }
 
 .side-bar-list li:hover {
-  color: #f0f0f0;
+  /* color: #f0f0f0; */
 }
 
 .side-bar-create-button:hover {
@@ -90,6 +96,6 @@ li {
 }
 
 li:hover {
-  background-color: #4c505a;
+  /* background-color: #4c505a; */
 }
 </style>
