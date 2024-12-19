@@ -1,7 +1,7 @@
 <!-- ListSidebar.vue -->
 <template>
   <div class="side-bar-container">
-    <h3 class="text-2xl text-center text-blue-500 font-weight: 800">Linkhub</h3>
+    <h3 class="text-2xl text-center text-blue-500 font-weight: 800">LinkHub</h3>
     <button class="side-bar-create-button" @click="emit('showAddListModal')">
       Create New
     </button>
