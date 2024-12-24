@@ -159,6 +159,8 @@ import LoginModal from "./components/LoginModal.vue";
 // import MainApp from "./components/MainApp.vue";
 import { loadGuestData } from "./components/utils/storage";
 import { initializeAuthListener } from "./components/auth/authListener";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./components/firebase";
 const isAddLinkModalVisible = ref(false);
 
 // State variables
@@ -171,6 +173,7 @@ const isEditSubcategoryModalVisible = ref(false);
 const isDeleteSubcategoryModalVisible = ref(false);
 const currentSubcategory = ref(null);
 const isDeleteItemModalVisible = ref(false);
+const showLoginModal = ref(false);
 const currentItem = ref(null);
 const itemToDeleteName = ref("");
 const isEditLinkModalVisible = ref(false);
@@ -191,7 +194,23 @@ function showAddListModal() {
 function hideAddListModal() {
   isAddListModalVisible.value = false;
 }
-
+const handleLoginSuccess = (user) => {
+  console.log("Login successful:", user);
+  showLoginModal.value = false; // Hide the modal after login
+};
+// Check if the user is logged in on page load
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    console.log("User logged in:", user);
+    // Initialize app with user data (e.g., fetch from Firestore)
+  } else {
+    console.log("No user logged in, showing login modal.");
+    const guestData = loadGuestData();
+    if (!guestData) {
+      showLoginModal.value = true; // Show the login modal
+    }
+  }
+});
 initializeAuthListener((data) => {
   console.log("App initialized with data:", data);
   // Set up your app's state (e.g., Vuex store or reactive variables)
