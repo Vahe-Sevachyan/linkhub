@@ -24,6 +24,8 @@
     <!-- Existing Modals -->
 
     <!-- Add confirmation modal for list and subcategory deletion -->
+    <LoginModal v-if="showLoginModal" @login-success="handleLoginSuccess" />
+    <MainApp v-else :user="user" />
     <Modal
       v-if="isDeleteItemModalVisible"
       modalTitle="Confirm Delete Item"
@@ -153,6 +155,10 @@ import ListSidebar from "./components/ListSidebar.vue";
 import SubcategoryView from "./components/SubcategoryView.vue";
 import AddLinkModal from "./components/AddLinkModal.vue";
 import Modal from "./components/Modal.vue";
+import LoginModal from "./components/LoginModal.vue";
+// import MainApp from "./components/MainApp.vue";
+import { loadGuestData } from "./components/utils/storage";
+import { initializeAuthListener } from "./components/auth/authListener";
 const isAddLinkModalVisible = ref(false);
 
 // State variables
@@ -186,6 +192,16 @@ function hideAddListModal() {
   isAddListModalVisible.value = false;
 }
 
+initializeAuthListener((data) => {
+  console.log("App initialized with data:", data);
+  // Set up your app's state (e.g., Vuex store or reactive variables)
+});
+// Load guest data at app start
+const guestData = loadGuestData();
+if (guestData) {
+  console.log("Loaded guest data:", guestData);
+  // Use guestData to initialize your app's state
+}
 function deleteCategory(list) {
   console.log("deleteCategory called with list:", list);
   lists.value = lists.value.filter((l) => l.id !== list.id);
