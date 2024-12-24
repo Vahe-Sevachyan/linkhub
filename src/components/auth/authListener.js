@@ -1,7 +1,7 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase"; // Update path to your Firebase config
-import { loadGuestData, getUserDataFromFirestore } from "../utils/storage";
-
+import { loadGuestData } from "../utils/storage";
+import { getUserDataFromFirestore } from "../firestoreUtils";
 export const initializeAuthListener = (updateAppState) => {
   onAuthStateChanged(auth, async (user) => {
     if (user) {

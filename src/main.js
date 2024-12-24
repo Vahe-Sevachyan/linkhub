@@ -5,8 +5,9 @@ import "./assets/tailwind.css";
 createApp(App).mount("#app");
 
 import { onAuthStateChanged } from "firebase/auth";
-import { loadGuestData, getUserDataFromFirestore } from "./components/firebase";
-
+import { getUserDataFromFirestore } from "./components/firebase";
+import { loadGuestData } from "./components/utils/storage.js"; // Adjust the path as needed
+import { auth } from "./components/firebase";
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     console.log("User logged in:", user);

@@ -1,6 +1,6 @@
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from "../firebase"; // Adjust the path to your Firebase configuration file
-import { saveUserDataToFirestore } from "./firestoreUtils";
+import { saveUserDataToFirestore } from "../firestoreUtils";
 
 const provider = new GoogleAuthProvider();
 
